@@ -15,6 +15,11 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+THIRD_PARTY_APPS = [
+    'rest_framework',
+    'drf_spectacular',
+]
+
 LOCAL_APPS = [
     'apps.products.apps.ProductsConfig',
     'apps.users.apps.UsersConfig',
@@ -27,6 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    *THIRD_PARTY_APPS,
     *LOCAL_APPS,
 ]
 
@@ -106,6 +112,12 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR.parent / 'media'
+
 # Default primary key field type
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+from config.rest_framework import REST_FRAMEWORK  # noqa
+from config.spectacular import SPECTACULAR_SETTINGS  # noqa

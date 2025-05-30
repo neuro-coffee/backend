@@ -3,4 +3,5 @@ __pycache__/
 .idea/
 .venv/
 venv/
+media/
 db.sqlite3

@@ -15,7 +15,7 @@ class ProductModel(models.Model):
     )
     types = models.ManyToManyField(
         'ProductTypeModel',
-        verbose_name='',
+        verbose_name='тип',
         related_name='products',
         blank=True,
     )
@@ -24,6 +24,9 @@ class ProductModel(models.Model):
         verbose_name = 'товар'
         verbose_name_plural = 'товары'
 
+    def __str__(self) -> str:
+        return f'{self.name}: {self.price}'
+
 
 class ProductTypeModel(models.Model):
     name = models.CharField('название', db_index=True, max_length=255)
@@ -31,6 +34,25 @@ class ProductTypeModel(models.Model):
     class Meta:
         verbose_name = 'тип товаров'
         verbose_name_plural = 'типы товаров'
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class MenuModel(models.Model):
+    name = models.CharField('название', max_length=255)
+    products = models.ManyToManyField(
+        ProductModel,
+        verbose_name='товары',
+        related_name='menus',
+    )
+
+    class Meta:
+        verbose_name = 'меню'
+        verbose_name_plural = 'меню'
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class PromoModel(models.Model):
@@ -41,6 +63,9 @@ class PromoModel(models.Model):
     class Meta:
         verbose_name = 'акция'
         verbose_name_plural = 'акции'
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class PromoConditionModel(models.Model):
@@ -60,7 +85,7 @@ class PromoConditionModel(models.Model):
 class BasketModel(models.Model):
     products = models.ManyToManyField(
         ProductModel,
-        verbose_name='корзина',
+        verbose_name='продукты',
         related_name='baskets',
         blank=True,
     )
@@ -68,3 +93,6 @@ class BasketModel(models.Model):
     class Meta:
         verbose_name = 'корзина'
         verbose_name_plural = 'корзины'
+
+    def __str__(self) -> str:
+        return str(self.id)
